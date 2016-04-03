@@ -1,6 +1,6 @@
 //Intro screen
 document.getElementById('world').innerHTML = "<div><img src=\"coverpicture.gif\" style=\"width:400px; height:300px\">"
- + "<br>&nbsp;&nbsp;&nbsp;<input type=\"button\" style = \"margin-left:12em\"value=\"Play\" onClick=\"playpacman();\"></div>";
+ + "<br>&nbsp;&nbsp;&nbsp;<input type=\"button\" style = \"margin-left:12em\" value='Play!' onClick=\"playpacman();\"></div>";
  
  //Function to start the game
 function playpacman(){
@@ -394,7 +394,7 @@ function playpacman(){
     	//Clear Gameon text if still there
     	 document.getElementById('countofnum').innerHTML = "";
     //Create losing screen
-    	document.getElementById('world').innerHTML = "<div class='death'>You lose!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " + score + "</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\"Play Again\" onClick=\"playpacman();\"></div>";
+    	document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " + score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"playpacman();\"></center></div>";
     //set all repeated variables to null
    	 world = [];
     	pacman = {};

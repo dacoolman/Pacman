@@ -9,19 +9,37 @@
 
   <title>Pacman Game</title>
 
+   <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
   <link rel="stylesheet" type="text/css" href="style.css"></link>
 
 </head>
 
 
 <body>
-
-  <div id='container'>
+    <nav>
+    <div id = 'heading' class="nav-wrapper">
+      <a href="#" class="brand-logo center">Pacman</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li><a href='#'><img src='pacman.gif'></a></li>
+      <li><a href='#'><img src='cherries.gif'></a></li>
+      <li><a href='#'><img src='coin.png'></a></li>
+    </ul>
+    </div>
+  </nav>
+<div class='z-depth-5' id='outer'>
+  <div class id='container'>
     <div id='world'></div>
     <div id='countofnum'></div>
   </div>
+</div>
   <!--Create an extra div for the sound to equal to-->
   <div id='sound'></div>
+
 <script src="main.js"></script>
 
 </body>

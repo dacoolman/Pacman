@@ -1,8 +1,27 @@
+body{
+  background-image: url("background.png");
+}
+#heading{
+  background-color: black;
+
+}
+#outer{width: 460px;
+height: 460px;
+background-color: black;
+      position: fixed;
+    top: 40%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);}
 #container{
       background-color: black;
       width: 400px;
       height: 400px;
-      position: relative;
+      position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     }
 /* 0 */
     .brick{ 
@@ -129,7 +148,7 @@
     .death{
         color: white;
     	top: 100px;
-    	left: 100px;
+    	left: 60px;
     	position: absolute;
     	fontweight: bold;
     	font-size: 250%;
