@@ -1,47 +1,46 @@
-
-<!doctype html>
-
+<!DOCTYPE html>
 <html>
-
 <head>
 	<!--favicon-->
-	<link rel="shortcut icon" type="image/png" href="pacmansmall.png"/>
-
+	<link rel="shortcut icon" type="image/png" href="img/pacmansmall.png"/>
   <title>Pacman Game</title>
-
    <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="style.css"></link>
-
+  <link rel="stylesheet" type="text/css" href="css/style.css"></link>
 </head>
-
-
 <body>
-    <nav>
+  <nav>
     <div id = 'heading' class="nav-wrapper">
       <a href="#" class="brand-logo center">Pacman</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-      <li><a href='#'><img src='pacman.gif'></a></li>
-      <li><a href='#'><img src='cherries.gif'></a></li>
-      <li><a href='#'><img src='coin.png'></a></li>
-    </ul>
+        <li><a href='#'><img src='img/pacman.gif'></a></li>
+        <li><a href='#'><img src='img/cherries.gif'></a></li>
+        <li><a href='#'><img src='img/coin.png'></a></li>
+      </ul>
     </div>
   </nav>
-<div class='z-depth-5' id='outer'>
-  <div class id='container'>
-    <div id='world'></div>
-    <div id='countofnum'></div>
+  <div class='z-depth-5' id='outer'>
+    <div class id='container'>
+      <div id='world'>
+        <div>
+          <img src="img/coverpicture.gif" style="width:400px; height:300px;">
+          <br>
+          <input type="button" style="display: block; margin: 0 auto;" value='Play!' onClick="playPacman();">
+        </div>
+      </div>
+      <div id='countofnum'></div>
+    </div>
   </div>
-</div>
-  <!--Create an extra div for the sound to equal to-->
+  <!--Div to add sound to-->
   <div id='sound'></div>
-
-<script src="main.js"></script>
-
+  <!--jQuery added to support Materialize-->
+  <script src="lib/jquery-1.9.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/character.js"></script>
+  <script src="js/pacman.js"></script>
+  <script src="js/ghost.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
 
