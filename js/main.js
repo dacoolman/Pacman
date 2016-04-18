@@ -21,56 +21,37 @@ world = [
   var ghost = new Ghost(1,1,'blueghost');
   var redghost = new Ghost(8,8,'redghost');
   //create an object to store the direction the sprite will be looking at
-  var direction = "";
-  var ghostdirection = "";
-  var redghostdirection="";
+  var direction = "right";
+  var ghostdirection = "right";
+  var redghostdirection="right";
   // create an array to hold the 'world' or gameboard that we will use to represent what each box in the grid will be
   //create a variable to record the score
   function draw_pacman(){
-    if (direction == "up")
-    {
-      document.getElementById('world').innerHTML += "<div class='pacmanup' style='top: " + pacman.y * 32 + "px; left: " + pacman.x * 32 + "px'></div>";
-    }
-    else if (direction == "down")
-    {
-      document.getElementById('world').innerHTML += "<div class='pacmandown' style='top: " + pacman.y * 32 + "px; left: " + pacman.x * 32 + "px'></div>"; 
-    }
-    else if (direction == "left")
-    {
-      document.getElementById('world').innerHTML += "<div class='pacmanleft' style='top: " + pacman.y * 32 + "px; left: " + pacman.x * 32 + "px'></div>"; 
-    }
-    else 
-    {
-      document.getElementById('world').innerHTML += "<div class='pacman' style='top: " + pacman.y * 32 + "px; left: " + pacman.x * 32 + "px'></div>"; 
-    } 
+    pacman.renderCharacter.call(pacman, 'pacman' + direction);
   }  
   //draw blue ghost
   function draw_ghost(){
-    if (ghostdirection == "left")
-    {
-      document.getElementById('world').innerHTML += "<div class='ghostleft' style='top: " + ghost.y * 32 + "px; left: " + ghost.x * 32 + "px'></div>";
+    if (ghostdirection === 'left' || ghostdirection === 'right' ){
+      ghost.renderCharacter.call(ghost, 'ghost' + ghostdirection);
     }
-    else 
-    {
-      document.getElementById('world').innerHTML += "<div class='ghost' style='top: " + ghost.y * 32 + "px; left: " + ghost.x * 32 + "px'></div>";
-    } 
+    else {
+      ghost.renderCharacter.call(ghost, 'ghostright');
+    }
   }
   //draw second ghost
   function draw_redghost(){
-    if (redghostdirection == "left")
-    {
-      document.getElementById('world').innerHTML += "<div class='redghostleft' style='top: " + redghost.y * 32 + "px; left: " + redghost.x * 32 + "px'></div>";
+    if (redghostdirection === 'left' || redghostdirection === 'right' ){
+      redghost.renderCharacter.call(redghost, 'redghost' + redghostdirection);
     }
-    else
-    {
-      document.getElementById('world').innerHTML += "<div class='redghost' style='top: " + redghost.y * 32 + "px; left: " + redghost.x * 32 + "px'></div>";
-    } 
+    else {
+      redghost.renderCharacter.call(redghost, 'redghostright');
+    }
   }  
-  // call functions
   draw_world();
   draw_pacman();
   draw_ghost();
   draw_redghost();
+
   //countdown function
   var numcount = 4;
   var countdownfunc = setInterval(function(){
@@ -388,7 +369,7 @@ world = [
       play(sounds.win);
       //Create winning screen
         document.getElementById('world').innerHTML = "<div class='death'>You win!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " 
-        + score + "</div><br>&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"button\" value=\"Play Again\" onClick=\"playPacman();\"></div>";
+        + score + "</div><br><input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"playPacman();\"></div>";
     //set all repeated variables to null
       world = [];
       pacman = {};

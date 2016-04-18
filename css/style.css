@@ -60,7 +60,7 @@ body{
   height: 32px;
   position: absolute; 
 }
-.ghost{
+.ghostright{
   background-image: url('../img/ghost.gif');
   background-size: cover;
   width: 32px;
@@ -79,7 +79,7 @@ body{
   transform: scaleX(-1);		
 }
     
-.redghost{
+.redghostright{
   background-image: url('../img/redghost.gif');
   background-size: cover;
   width: 32px;
@@ -98,7 +98,7 @@ body{
   transform: scaleX(-1);	
 }
 
-.pacman{
+.pacmanright{
   background-image: url('../img/pacman.gif');
   background-size: cover;
   width: 32px;
