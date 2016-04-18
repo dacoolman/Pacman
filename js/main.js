@@ -2,76 +2,34 @@ var playPacman;
 document.addEventListener("DOMContentLoaded", function() {  
  //Function to start the game
 playPacman = function(){
-world = [
-  0,0,0,0,0,0,0,0,0,0,
-  0,1,1,1,1,1,1,1,1,0,
-  0,1,1,1,0,0,0,0,0,0,
-  0,0,0,1,1,1,1,1,1,0,
-  1,1,1,1,0,0,0,1,1,1,
-  0,1,0,1,1,2,0,2,2,0,
-  0,1,0,1,1,1,0,1,1,0,
-  0,1,0,0,1,0,0,1,0,0,
-  0,1,1,1,1,1,1,1,1,0,
-  0,0,0,0,0,0,0,0,0,0,
-];
   //Play intro song automatically
-  play(sounds.intro);    
+  play(sounds.intro);
+  // array to hold world
+  world = [
+      0,0,0,0,0,0,0,0,0,0,
+      0,1,1,1,1,1,1,1,1,0,
+      0,1,1,1,0,0,0,0,0,0,
+      0,0,0,1,1,1,1,1,1,0,
+      1,1,1,1,0,0,0,1,1,1,
+      0,1,0,1,1,2,0,2,2,0,
+      0,1,0,1,1,1,0,1,1,0,
+      0,1,0,0,1,0,0,1,0,0,
+      0,1,1,1,1,1,1,1,1,0,
+      0,0,0,0,0,0,0,0,0,0,
+   ];
   // create an object to store the propeties of each character
   pacman = new Pacman(5,5,'mrpacman');
-  var ghost = new Ghost(1,1,'blueghost');
+  var ghost = new Ghost(1,1,'ghost');
   var redghost = new Ghost(8,8,'redghost');
   //create an object to store the direction the sprite will be looking at
   var direction = "right";
   var ghostdirection = "right";
   var redghostdirection="right";
-  // create an array to hold the 'world' or gameboard that we will use to represent what each box in the grid will be
-  //create a variable to record the score
-  function draw_pacman(){
-    pacman.renderCharacter.call(pacman, 'pacman' + direction);
-  }  
-  //draw blue ghost
-  function draw_ghost(){
-    if (ghostdirection === 'left' || ghostdirection === 'right' ){
-      ghost.renderCharacter.call(ghost, 'ghost' + ghostdirection);
-    }
-    else {
-      ghost.renderCharacter.call(ghost, 'ghostright');
-    }
-  }
-  //draw second ghost
-  function draw_redghost(){
-    if (redghostdirection === 'left' || redghostdirection === 'right' ){
-      redghost.renderCharacter.call(redghost, 'redghost' + redghostdirection);
-    }
-    else {
-      redghost.renderCharacter.call(redghost, 'redghostright');
-    }
-  }  
   draw_world();
-  draw_pacman();
-  draw_ghost();
-  draw_redghost();
-
-  //countdown function
-  var numcount = 4;
-  var countdownfunc = setInterval(function(){
-      numcount -= 1;
-      if (numcount==0)
-        {
-          document.getElementById('countofnum').innerHTML = "<div class='countdown'>Game on!</div>";
-        }
-      else
-        {
-          document.getElementById('countofnum').innerHTML = "<div class='countdown'>" + numcount + "</div>";
-        }
-      if (numcount<1)
-      {
-        clearInterval(countdownfunc);
-      }
-  }, 1000);
-  setTimeout(function() {
-    document.getElementById('countofnum').innerHTML = "";
-  }, 9000);
+  pacman.renderPacman(direction);
+  ghost.renderGhost(ghostdirection);
+  redghost.renderGhost(redghostdirection);
+  startCountdown();
   //Support cheat codes
   cheatcode = [];
   password = "";
@@ -179,15 +137,14 @@ world = [
   else if(world[((pacman.y * 10) + pacman.x)] == 1){
     // there is a coin here, remove it from the array
     world[((pacman.y * 10) + pacman.x)] = 2;
-    //add 10 to the score
     score += 10;
     //play sound effect
-    playcoin();
+    play(sounds.coin);
     //redraw map
     draw_world();
-    draw_pacman();
-    draw_ghost();
-    draw_redghost();  
+    pacman.renderPacman(direction);
+    ghost.renderGhost(ghostdirection);
+    redghost.renderGhost(redghostdirection);  
     //check to see if all coins have been eaten
     for (var i=0; i<world.length; i++)
     {
@@ -205,23 +162,21 @@ world = [
   }
   //check if pacman's on a cherry
   else if(world[((pacman.y * 10) + pacman.x)] === 3){
-    // there is a cherry here, remove it from the array
     world[((pacman.y * 10) + pacman.x)] = 2;
-    //add 50 to the score
     score += 50;
-    //play sound effect
-    playcherry();
+    play(sounds.cherry);
     draw_world();
-    draw_pacman();
-    draw_ghost();
-    draw_redghost();
+    pacman.renderPacman(direction);
+    ghost.renderGhost(ghostdirection);
+    redghost.renderGhost(redghostdirection); 
   }   
   else {
     // call functions to update the view
     draw_world();
-    draw_pacman();
-    draw_ghost();
-    draw_redghost();}
+    pacman.renderPacman(direction);
+    ghost.renderGhost(ghostdirection);
+    redghost.renderGhost(redghostdirection); 
+  }
   };
   //Moves for red ghost
   var moveRedGhost = setInterval( function redghostmove(){
@@ -274,8 +229,7 @@ world = [
           A = 1;
         } 
       }
-    while (A == 0);
-    draw_redghost();  
+    while (A == 0);  
   }, 500); //repeat this every half second
       //Blue ghost moves
   var moveGhost = setInterval( 
@@ -329,9 +283,9 @@ world = [
           }
          while (A == 0);
       draw_world();
-      draw_pacman();  
-      draw_ghost();
-      draw_redghost();
+      pacman.renderPacman(direction); 
+      ghost.renderGhost(ghostdirection);
+      redghost.renderGhost(redghostdirection); 
       if (pacman.x == ghost.x && pacman.y == ghost.y ||pacman.x == redghost.x && pacman.y == redghost.y ) 
         {
           pacmandies();}
@@ -339,16 +293,11 @@ world = [
          //Function when pacman dies
     function pacmandies()
     {
-      function playdeath()
-      {
-        play(sounds.die);
-      }
-      //play death music
-      playdeath();
-      //Clear Gameon text if still there
+      play(sounds.die);
+      //Clear Game-on text if still there
       document.getElementById('countofnum').innerHTML = "";
       //Create losing screen
-      document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " + score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"playPacman();\"></center></div>";
+      document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">Score: " + score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"playPacman();\"></center></div>";
       //set all repeated variables to null
       world = [];
       pacman = {};
@@ -365,7 +314,6 @@ world = [
     //What to do if you win
     function win()
     {
-      //play winning music
       play(sounds.win);
       //Create winning screen
         document.getElementById('world').innerHTML = "<div class='death'>You win!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " 
@@ -384,16 +332,6 @@ world = [
         document.onkeydown = function(f){};  
     } 
     }, 4000);  
-    //Function to play coin noise
-    function playcoin()
-    {
-      play(sounds.coin);
-    }
-    //Function to play cherry noise
-    function playcherry()
-    {
-      play(sounds.cherry);
-    }
     //Function to add cherry to a random blank spot (that pacman isn't in)
     var refreshCherry = setInterval(function(){
       //Create an array to hold every blank space in world
@@ -411,11 +349,11 @@ world = [
       world[B] = 3;
       //redraw map
       draw_world();
-      draw_pacman();
-      draw_ghost();
-      draw_redghost();  
+      pacman.renderPacman(direction);
+      ghost.renderGhost(ghostdirection);
+      redghost.renderGhost(redghostdirection);   
     }, 15000); //repeat every 15 seconds
   }
 //Uncomment below to start game on page init
-//playPacman();
+  playPacman();
 });
