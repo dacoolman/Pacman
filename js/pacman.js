@@ -1,5 +1,6 @@
-var Pacman = function(x,y,name){
+var Pacman = function(x,y,name,controls){
 	this.name = name;
+	this.controls = controls;
 	this.initCoordinates(x,y);
 };
 
@@ -12,18 +13,18 @@ Pacman.prototype.renderPacman = function(){
 };
 
 Pacman.prototype.inspectBlock = function() {
-	var blockValue = world[((this.y * 10) + this.x)];
+	var blockValue = Game.world[((this.y * 10) + this.x)];
 	switch(blockValue){
 		case 1:
-			world[((this.y * 10) + this.x)] = 2;
-			score += 10;
-			play(sounds.coin);
-			checkWin();
+			Game.world[((this.y * 10) + this.x)] = 2;
+			Game.score += 10;
+			Game.play(Game.sounds.coin);
+			Game.checkWin();
 			break;
 		case 3:
-			world[((this.y * 10) + this.x)] = 2;
-			score += 50;
-			play(sounds.cherry);
+			Game.world[((this.y * 10) + this.x)] = 2;
+			Game.score += 50;
+			Game.play(Game.sounds.cherry);
 			break;
 	}
 };

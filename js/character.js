@@ -19,7 +19,7 @@ Character.prototype.move = function(direction) {
 				this.x += 9;
 				this.direction = 'left';
 			}
-			else if (world[((this.y * 10) + this.x) - 1] !== 0) {
+			else if (Game.world[((this.y * 10) + this.x) - 1] !== 0) {
 				this.x -= 1;
 				this.direction = 'left';
 			}
@@ -29,7 +29,7 @@ Character.prototype.move = function(direction) {
 				this.x -= 9;
       			this.direction = "right";
 			}
-			else if (world[((this.y * 10) + this.x) + 1] !== 0) {
+			else if (Game.world[((this.y * 10) + this.x) + 1] !== 0) {
 				this.x += 1;
 				this.direction = 'right';
 			}
@@ -39,7 +39,7 @@ Character.prototype.move = function(direction) {
 				this.y -= 9;
 				this.direction = "down";
 			}
-			else if (world[((this.y * 10) + this.x) + 10] !== 0) {
+			else if (Game.world[((this.y * 10) + this.x) + 10] !== 0) {
       			this.y += 1;
       			this.direction = "down";
 			}
@@ -49,7 +49,7 @@ Character.prototype.move = function(direction) {
 				this.y +=9;
 				this.direction = 'up';
 			}
-			else if (world[((this.y * 10) + this.x) - 10] !== 0) {
+			else if (Game.world[((this.y * 10) + this.x) - 10] !== 0) {
       			this.y -=1;
       			this.direction = "up";
       		}

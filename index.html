@@ -25,11 +25,11 @@
         <div>
           <img src="img/coverpicture.gif" style="width:400px; height:300px;">
           <br>
-          <input type="button" style="display: block; margin: 0 auto;" value='Play!' onClick="playPacman();">
+          <input type="button" style="display: block; margin: 0 auto;" value='Play!' onClick="Game.playPacman();">
         </div>
       </div>
       <div id='countofnum'></div><br>
-      <span id='mute' onclick='mute();'>&#128266;</span>
+      <span id='mute' onclick='Game.mute();'>&#128266;</span>
     </div>
   </div>
   <!--Div to add sound to-->
@@ -37,11 +37,10 @@
   <!--jQuery added to support Materialize-->
   <script src="lib/jquery-1.9.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-  <script src="js/world.js"></script>
   <script src="js/character.js"></script>
   <script src="js/pacman.js"></script>
   <script src="js/ghost.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/game.js"></script>
 </body>
 </html>
 
