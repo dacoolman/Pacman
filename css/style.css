@@ -2,7 +2,6 @@ body{
   background-image: url("../img/background.png");
 }
 
-
 #heading{
   background-color: black;
 }
@@ -27,118 +26,60 @@ body{
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-    }
+}
 
-/* 0 */
-.brick{ 
-  background-color: blue;
+.sprite{
   width: 32px;
   height: 32px;
   position: absolute;
+}
+/* 0 */
+.brick{ 
+  background-color: blue;
 }
 
 /* 1 */
 .coin{
   background-image: url('../img/coin.png');
   background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
 }
-
-/* 2 */
-.blank{
-  width: 32px;
-  height: 32px;
-  position: absolute;
-}  
 
 .cherry{
   background-image: url('../img/cherries.gif');
   background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute; 
-}
-.ghostright{
-  background-image: url('../img/ghost.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  }
-    
-.ghostleft{
-  background-image: url('../img/ghost.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  -ms-transform: scaleX(-1); /* IE 9 */
-  -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
-  transform: scaleX(-1);		
-}
-    
-.redghostright{
-  background-image: url('../img/redghost.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;	
 }
 
-.redghostleft{
-  background-image: url('../img/redghost.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  -ms-transform: scaleX(-1); /* IE 9 */
-  -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
-  transform: scaleX(-1);	
-}
-
-.pacmanright{
-  background-image: url('../img/pacman.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-}
-
-.pacmanleft{
-  background-image: url('../img/pacman.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  -ms-transform: rotate(180deg); /* IE 9 */
-  -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-  transform: rotate(180deg);
-}
-
-.pacmanup{
-  background-image: url('../img/pacman.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
+.faceup{
   -ms-transform: rotate(270deg); /* IE 9 */
   -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
   transform: rotate(270deg);
-  /*display: inline-block;*/
 }
 
-.pacmandown{
-  background-image: url('../img/pacman.gif');
-  background-size: cover;
-  width: 32px;
-  height: 32px;
-  position: absolute;
+.faceleft{
+  -ms-transform: scaleX(-1); /* IE 9 */
+  -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
+  transform: scaleX(-1);
+}
+
+.facedown{
   -ms-transform: rotate(90deg); /* IE 9 */
   -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
   transform: rotate(90deg);
-  /*display: inline-block;*/
+}
+
+.ghost{
+  background-image: url('../img/ghost.gif');
+  background-size: cover; 
+}
+
+.redghost{
+  background-image: url('../img/redghost.gif');
+  background-size: cover; 
+}
+
+.pacman{
+  background-image: url('../img/pacman.gif');
+  background-size: cover;
 }
 
 .score{
@@ -154,6 +95,16 @@ body{
 	left: 0px;
 	position: absolute;
 	font-size: 250%;
+}
+
+#mute{
+  color: white;
+  top: 370px;
+  left: 0px;
+  position: absolute;
+  font-size: 200%;
+  cursor: pointer;
+
 }
 .death{
   color: white;
