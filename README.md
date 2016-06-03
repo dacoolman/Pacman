@@ -1,6 +1,6 @@
-Here is a game I made before the bootcamp. It is made with pure javascript. There is a world array that represents the level with a different number in each spot indicating if there is a wall, blank space, coin or cherry.
+Code supports having as many ghosts and pacman as desired.
 
-There are two ghosts that will move randomly every half second to an available open space. They will face left or right depending on the last direction they turned, similar to Pacman.
+There are ghosts that will move randomly every half second to an available open space. They will face left or right depending on the last direction they turned, similar to Pacman.
 
 Both pacman and the ghosts can go to the holes in the level to get to the other side. Also a cherry will appear every 30 seconds to a blank space if there is one
 
@@ -11,3 +11,5 @@ I added two cheat codes:
 2. If the user types "pacman", the user wins
 
 After each change in the world the world is regenerated to reflect the new information.
+
+Made with vanilla javascript on the client. Supported on Firefox and Chrome.
