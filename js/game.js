@@ -1,33 +1,27 @@
 //functions and variables to render the world
 var Game = {
   // *********** Game Init ****************
-  playPacman: function() {
+  playPacman: function(level, player2) {
+    var player2 = !!player2;
     this.gameWon = false;
     this.score = 0;
     this.pacmans = [];
     this.ghosts = [];
     //Play intro song automatically
     this.play(this.sounds.intro);
-    // array to hold world
-    this.world = [
-      0,0,0,0,0,0,0,0,0,0,
-      0,1,1,1,1,1,1,1,1,0,
-      0,1,1,1,0,0,0,0,1,0,
-      0,0,0,1,1,1,1,1,1,0,
-      1,1,1,1,0,0,0,1,1,1,
-      0,1,0,1,1,2,0,2,2,0,
-      0,1,0,1,1,1,0,1,1,0,
-      0,1,0,0,1,0,0,1,0,0,
-      0,1,1,1,1,1,1,1,1,0,
-      0,0,0,0,0,0,0,0,0,0,
-    ];
+    //get world and sprites from level
+    var currentLevel = this.levels[level];
+    this.world = currentLevel.world.slice();
+    this.pacmans.push(Game.clone(currentLevel.pacman));
+    if (player2) this.pacmans.push(Game.clone(currentLevel.mspacman));
+    //copy all ghost objects by reference
+    for (var i=0 ; i<currentLevel.ghosts.length ; i++) {
+      this.ghosts.push(Game.clone(currentLevel.ghosts[i]));
+    }
+
     //world for testing
     //this.world = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,2,2,2,0,0,0,0,2,0,0,0,0,2,2,2,2,2,2,0,2,2,2,1,0,0,0,2,2,2,0,2,0,2,2,2,0,2,2,0,0,2,0,2,2,2,0,2,2,0,0,2,0,0,2,0,0,2,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,];
 
-    // Render each character
-    this.pacmans.push(new Pacman(5,5,'mrpacman', {left: 'left', up: 'up', right: 'right', down: 'down'}));
-    this.ghosts.push(new Ghost(1,1,'ghost'));
-    this.ghosts.push(new Ghost(8,8,'redghost'));
     this.renderAll();
     this.startCountdown(); 
     setTimeout(function(){
@@ -164,7 +158,7 @@ var Game = {
   win: function() {
     this.play(this.sounds.win);
     document.getElementById('world').innerHTML = "<div class='death'>You win!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " 
-      + this.score + "</div><br><input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman();\"></div>";
+      + this.score + "</div><br><input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(1);\"></div>";
     this.endGame();
   },
 
@@ -172,7 +166,7 @@ var Game = {
     this.play(this.sounds.die);
     //Clear Game-on text if still there
     document.getElementById('countofnum').innerHTML = "";
-    document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman();\"></center></div>";
+    document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(1);\"></center></div>";
     this.endGame();
   },
 
@@ -286,7 +280,42 @@ var Game = {
       var selectedBlock = openSquares[Math.floor( Math.random() * openSquares.length )];
       this.world[selectedBlock] = 3;
       this.renderAll();  
+    },
+
+  // ***** Vanilla Javascript methods *****
+  clone: function(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || "object" != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+        copy = new Date();
+        copy.setTime(obj.getTime());
+        return copy;
     }
+
+    // Handle Array
+    if (obj instanceof Array) {
+        copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = clone(obj[i]);
+        }
+        return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+        copy = {};
+        for (var attr in obj) {
+            copy[attr] = this.clone(obj[attr]);
+        }
+        return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
+  }
 
 };
 
