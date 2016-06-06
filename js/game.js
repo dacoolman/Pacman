@@ -2,9 +2,9 @@
 var Game = {
   // *********** Game Init ****************
   playPacman: function(level, player2) {
+    this.level = level;
     var player2 = !!player2;
     this.gameWon = false;
-    this.score = 0;
     this.pacmans = [];
     this.ghosts = [];
     //Play intro song automatically
@@ -157,16 +157,21 @@ var Game = {
 
   win: function() {
     this.play(this.sounds.win);
-    document.getElementById('world').innerHTML = "<div class='death'>You win!!!<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " 
-      + this.score + "</div><br><input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(1);\"></div>";
+    var nextLevelNum = this.level + 1;
+    var nextLevel = this.level === this.levels.length - 1 ? "" : "<input class='btn waves-effect waves-light red' type=\"button\" value=\"Continue\" onClick=\"Game.playPacman(" + nextLevelNum + ");\">" ;
+    var text = this.level === this.levels.length - 1 ? "You beat Pacman. Thanks for playing!!" : "You beat the level, keep going!";
+    document.getElementById('world').innerHTML = "<div class='death'>"+ text +"<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " 
+      + this.score + "</div><br>"+ nextLevel +"<input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(" + this.level + ");\"></div>";
     this.endGame();
   },
 
   die: function() {
     this.play(this.sounds.die);
+    var reset = this.level === 1 ? "" : "<input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Reset\" onClick=\"Game.playPacman(1);\">";
     //Clear Game-on text if still there
     document.getElementById('countofnum').innerHTML = "";
-    document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(1);\"></center></div>";
+    document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Retry\" onClick=\"Game.playPacman("+ this.level +");\">" + reset + "</center></div>";
+    this.score = 0;
     this.endGame();
   },
 
@@ -285,17 +290,14 @@ var Game = {
   // ***** Vanilla Javascript methods *****
   clone: function(obj) {
     var copy;
-
     // Handle the 3 simple types, and null or undefined
     if (null == obj || "object" != typeof obj) return obj;
-
     // Handle Date
     if (obj instanceof Date) {
         copy = new Date();
         copy.setTime(obj.getTime());
         return copy;
     }
-
     // Handle Array
     if (obj instanceof Array) {
         copy = [];
@@ -304,7 +306,6 @@ var Game = {
         }
         return copy;
     }
-
     // Handle Object
     if (obj instanceof Object) {
         copy = {};
@@ -313,16 +314,14 @@ var Game = {
         }
         return copy;
     }
-
     throw new Error("Unable to copy obj! Its type isn't supported.");
   }
-
 };
 
 //Uncomment below to start game on page init
 
 // document.addEventListener("DOMContentLoaded", function() {  
-//   Game.playPacman();
+//   Game.playPacman(4);
 // });
 
 
