@@ -106,12 +106,13 @@ body{
   cursor: pointer;
 
 }
-.death{
+.transition{
   color: white;
 	top: 60px;
-	left: 75px;
 	position: absolute;
 	font-weight: bold;
 	font-size: 250%;
   text-align: center;
+  width: 400px;
+  height: 300px;
 }

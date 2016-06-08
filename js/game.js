@@ -42,14 +42,15 @@ var Game = {
 
   play: function(src) {
     if (!this.muted) {
-      var audioString = "<audio autoplay=\"true\"><source src=" + "./audio/" + src + " type=\"audio/mpeg\"></source></audio>";
-      $('#sound').html(audioString);
+      var audioString = "<audio autoplay=\"true\"><source id='current_sound' src=" + "./audio/" + src + " type=\"audio/mpeg\"></source></audio>";
+      document.getElementById('sound').innerHTML = audioString;
     }
   },
 
   muted: false,
 
   mute: function() {
+    document.getElementById('sound').innerHTML = "";
     this.muted = true;
     var muteElement = document.getElementById('mute');
     muteElement.onclick = function(){ this.unmute(); }.bind(Game);
@@ -160,17 +161,17 @@ var Game = {
     var nextLevelNum = this.level + 1;
     var nextLevel = this.level === this.levels.length - 1 ? "" : "<input class='btn waves-effect waves-light red' type=\"button\" value=\"Continue\" onClick=\"Game.playPacman(" + nextLevelNum + ");\">" ;
     var text = this.level === this.levels.length - 1 ? "You beat Pacman. Thanks for playing!!" : "You beat the level, keep going!";
-    document.getElementById('world').innerHTML = "<div class='death'>"+ text +"<br><div style= \"font-size:80% \">&nbsp;&nbsp;Score: " 
+    document.getElementById('world').innerHTML = "<div class='transition'>"+ text +"<br><div style= \"font-size:80% \">Score: " 
       + this.score + "</div><br>"+ nextLevel +"<input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(" + this.level + ");\"></div>";
     this.endGame();
   },
 
   die: function() {
     this.play(this.sounds.die);
-    var reset = this.level === 1 ? "" : "<input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Reset\" onClick=\"Game.playPacman(1);\">";
+    var reset = this.level === 1 ? "" : "<br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Reset\" onClick=\"Game.playPacman(1);\">";
     //Clear Game-on text if still there
     document.getElementById('countofnum').innerHTML = "";
-    document.getElementById('world').innerHTML = "<div class='death'><center>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Retry\" onClick=\"Game.playPacman("+ this.level +");\">" + reset + "</center></div>";
+    document.getElementById('world').innerHTML = "<div class='transition'>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Retry\" onClick=\"Game.playPacman("+ this.level +");\">" + reset + "</div>";
     this.score = 0;
     this.endGame();
   },
