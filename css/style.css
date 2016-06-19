@@ -1,12 +1,13 @@
-body{
+/* ***** Whole page styles *****  */
+body {
   background-image: url("../img/background.png");
 }
 
-#heading{
+#heading {
   background-color: black;
 }
 
-#outer{
+#outer {
   width: 460px;
   height: 460px;
   background-color: black;
@@ -17,7 +18,7 @@ body{
   transform: translate(-50%, -50%);
 }
 
-#container{
+#container {
   background-color: black;
   width: 400px;
   height: 400px;
@@ -28,68 +29,75 @@ body{
   transform: translate(-50%, -50%);
 }
 
-.sprite{
+/* ***** In-game styles ***** */
+.sprite {
   width: 32px;
   height: 32px;
   position: absolute;
 }
 /* 0 */
-.brick{ 
+.brick { 
   background-color: blue;
 }
 
 /* 1 */
-.coin{
+.coin {
   background-image: url('../img/coin.png');
   background-size: cover;
 }
 
-.cherry{
+.cherry {
   background-image: url('../img/cherries.gif');
   background-size: cover;
 }
 
-.faceup{
+.faceup {
   -ms-transform: rotate(270deg); /* IE 9 */
   -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
   transform: rotate(270deg);
 }
 
-.faceleft{
+.faceleft {
   -ms-transform: scaleX(-1); /* IE 9 */
   -webkit-transform: scaleX(-1); /* Chrome, Safari, Opera */
   transform: scaleX(-1);
 }
 
-.facedown{
+.facedown {
   -ms-transform: rotate(90deg); /* IE 9 */
   -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
   transform: rotate(90deg);
 }
 
-.ghost{
+.ghost {
   background-image: url('../img/ghost.gif');
   background-size: cover; 
 }
 
-.redghost{
+.redghost {
   background-image: url('../img/redghost.gif');
   background-size: cover; 
 }
 
-.pacman{
+.pacman {
   background-image: url('../img/pacman.gif');
   background-size: cover;
 }
 
-.score{
+.mspacman {
+  background-image: url('../img/mspacman.png');
+  background-size: cover;
+  width: 27px;
+}
+
+.score {
 	color: white;
 	top: 0px;
 	left: 320px;
 	position: absolute;
 }
 
-.countdown{
+.countdown {
 	color: white;
 	top: 320px;
 	left: 0px;
@@ -97,7 +105,7 @@ body{
 	font-size: 250%;
 }
 
-#mute{
+#mute {
   color: white;
   top: 370px;
   left: 0px;
@@ -106,7 +114,8 @@ body{
   cursor: pointer;
 
 }
-.transition{
+
+.transition {
   color: white;
 	top: 60px;
 	position: absolute;
@@ -116,3 +125,56 @@ body{
   width: 400px;
   height: 300px;
 }
+
+#world {
+  color: white;
+}
+
+/* ***** Custom level Builder styles ***** */
+
+.world_border {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 5px dotted white;
+  left: -10px;
+  top: -10px;
+}
+
+.editable {
+  z-index: 6;
+}
+
+.editable:hover {
+  border: 3px solid yellow;
+}
+
+.editable:focus {
+  border: 3px solid orange;
+  outline: 0px solid orange;
+}
+
+.levelbuilderinfo {
+  position: absolute;
+  left: 340px;
+  width: 80px;
+}
+
+#levelbuilderextrainfo {
+  position: absolute;
+  left: 340px;
+  top: 326px;
+  width: 80px;
+}
+
+.pacman_icon {
+  text-align: center;
+  width: 80px;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  top: 340px;
+  left: 10px;
+  cursor: pointer;
+}
+

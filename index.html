@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!--favicon-->
-	<link rel="shortcut icon" type="image/png" href="img/pacmansmall.png"/>
   <title>Pacman Game</title>
-   <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <meta charset="UTF-8"> 
+  <!--favicon-->
+  <link rel="shortcut icon" type="image/png" href="img/pacmansmall.png"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css"></link>
 </head>
 <body>
@@ -22,12 +23,6 @@
   <div class='z-depth-5' id='outer' style="margin-top: 130px;">
     <div class id='container'>
       <div id='world'>
-        <div>
-          <img src="img/coverpicture.gif" style="width:400px; height:300px;">
-          <br>
-          <span style="color: white; display: block; margin: 0 auto; text-align: center;">Use the up, right, down and left keys to play!</span>
-          <input type="button" style="display: block; margin: 0 auto;" value='Play!' onClick="Game.playPacman(1);">
-        </div>
       </div>
       <div id='countofnum'></div><br>
       <span id='mute' onclick='Game.mute();'>&#128266;</span>
@@ -35,14 +30,12 @@
   </div>
   <!--Div to add sound to-->
   <div id='sound'></div>
-  <!--jQuery added to support Materialize-->
-  <script src="lib/jquery-1.9.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
   <script src="js/character.js"></script>
   <script src="js/pacman.js"></script>
   <script src="js/ghost.js"></script>
   <script src="js/game.js"></script>
   <script src="js/levels.js"></script>
+  <script src="js/levelbuilder.js"></script>
 </body>
 </html>
 

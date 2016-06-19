@@ -16,8 +16,10 @@ Character.prototype.move = function(direction) {
 	switch (direction) {
 		case 'left':
 			if (this.x === 0) {
-				this.x += 9;
-				this.direction = 'left';
+				if (Game.world[((this.y * 10) + 9)] !== 0) {
+					this.x += 9;
+					this.direction = 'left';
+				}
 			}
 			else if (Game.world[((this.y * 10) + this.x) - 1] !== 0) {
 				this.x -= 1;
@@ -26,8 +28,10 @@ Character.prototype.move = function(direction) {
 			break;
 		case 'right':
 			if (this.x === 9){
-				this.x -= 9;
-      			this.direction = "right";
+				if (Game.world[((this.y * 10) + 0)] !== 0) {
+					this.x -= 9;
+	      			this.direction = "right";
+      			}
 			}
 			else if (Game.world[((this.y * 10) + this.x) + 1] !== 0) {
 				this.x += 1;
@@ -36,8 +40,10 @@ Character.prototype.move = function(direction) {
 			break;
 		case 'down':
 			if (this.y === 9) {
-				this.y -= 9;
-				this.direction = "down";
+				if (Game.world[((0 * 10) + this.x)] !== 0) {
+					this.y -= 9;
+					this.direction = "down";
+				}
 			}
 			else if (Game.world[((this.y * 10) + this.x) + 10] !== 0) {
       			this.y += 1;
@@ -46,8 +52,10 @@ Character.prototype.move = function(direction) {
 			break;
 		case 'up':
 			if (this.y === 0) {
-				this.y +=9;
-				this.direction = 'up';
+				if (Game.world[((9 * 10) + this.x)] !== 0) {
+					this.y +=9;
+					this.direction = 'up';
+				}
 			}
 			else if (Game.world[((this.y * 10) + this.x) - 10] !== 0) {
       			this.y -=1;

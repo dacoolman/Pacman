@@ -3,8 +3,8 @@ var Game = {
   // *********** Game Init ****************
   playPacman: function(level, player2) {
     this.level = level;
-    var player2 = !!player2;
     this.gameWon = false;
+    this.gameInProgress = true;
     this.pacmans = [];
     this.ghosts = [];
     //Play intro song automatically
@@ -12,16 +12,22 @@ var Game = {
     //get world and sprites from level
     var currentLevel = this.levels[level];
     this.world = currentLevel.world.slice();
-    this.pacmans.push(Game.clone(currentLevel.pacman));
-    if (player2) this.pacmans.push(Game.clone(currentLevel.mspacman));
+    if (level === 0) {
+      //if the user is playing the custom level, check if pacman or mspacman is set
+      if (currentLevel.pacman) this.pacmans.push(Game.clone(currentLevel.pacman));
+      if (currentLevel.mspacman) this.pacmans.push(Game.clone(currentLevel.mspacman));
+    }
+    else {
+      //if not playing custom level, add pacman by default and mspacman if player2 is selected
+      this.pacmans.push(Game.clone(currentLevel.pacman));
+      if (player2) this.pacmans.push(Game.clone(currentLevel.mspacman));
+    }
     //copy all ghost objects by reference
     for (var i=0 ; i<currentLevel.ghosts.length ; i++) {
       this.ghosts.push(Game.clone(currentLevel.ghosts[i]));
     }
-
     //world for testing
     //this.world = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,2,2,2,0,0,0,0,2,0,0,0,0,2,2,2,2,2,2,0,2,2,2,1,0,0,0,2,2,2,0,2,0,2,2,2,0,2,2,0,0,2,0,2,2,2,0,2,2,0,0,2,0,0,2,0,0,2,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,];
-
     this.renderAll();
     this.startCountdown(); 
     setTimeout(function(){
@@ -31,6 +37,7 @@ var Game = {
     }, 4000);  
       Game.refreshCherryInterval = setInterval(Game.addCherry.bind(Game), 15000);
   },
+
   // *********** Audio handling ***********
   sounds: {
     intro:  "pacman_intro.mp3",
@@ -118,12 +125,16 @@ var Game = {
         case 1:
           this.addWorldElement('coin',i);
           break;
+        case 2:
+          this.addWorldElement('space',i);
+          break;
         case 3:
           this.addWorldElement('cherry',i);
           break;
       }
     }
-    this.updateScore();  
+    if (this.level === 0 && !this.gameInProgress) this.levelBuilder.styleLevelBuilder();
+    else this.updateScore();  
   },
 
   renderAll: function(){
@@ -138,10 +149,12 @@ var Game = {
   },
 
   addWorldElement: function(cssClass,i) {
-    document.getElementById('world').innerHTML += "<div class='sprite " + cssClass + "' style='top:" + Math.floor(i/10)*32 + "px;left:" + (i%10)*32  + "px'></div>"; 
+    var editingCustomLevelClass = (this.level === 0 && this.gameInProgress === false ? 'editable ' : '');
+    var editingCustomLevelTabindex = (this.level === 0 && this.gameInProgress === false ? ' tabindex="1" ' : '');
+    document.getElementById('world').innerHTML += "<div class='sprite " + editingCustomLevelClass + cssClass + "' yvalue='" + Math.floor(i/10) + "' xvalue='" + i%10 + "' style='top:" + Math.floor(i/10)*32 + "px; left:" + (i%10)*32  + "px'" + editingCustomLevelTabindex + "></div>"; 
   },
 
-  //***** End of Game functions *****
+  //***** End of Game/transition functions *****
 
   checkWin: function() {
     for (var i=0; i<this.world.length; i++) {
@@ -159,19 +172,21 @@ var Game = {
   win: function() {
     this.play(this.sounds.win);
     var nextLevelNum = this.level + 1;
-    var nextLevel = this.level === this.levels.length - 1 ? "" : "<input class='btn waves-effect waves-light red' type=\"button\" value=\"Continue\" onClick=\"Game.playPacman(" + nextLevelNum + ");\">" ;
-    var text = this.level === this.levels.length - 1 ? "You beat Pacman. Thanks for playing!!" : "You beat the level, keep going!";
+    var nextLevel = this.level === this.levels.length - 1 || this.level === 0 ? "" : "<input class='btn waves-effect waves-light red' type=\"button\" value=\"Continue\" onClick=\"Game.playPacman(" + nextLevelNum + ");\">" ;
+    var text = this.level === this.levels.length - 1 || this.level === 0 ? "You beat Pacman. Thanks for playing!!" : "You beat the level, keep going!";
+    var editLevel = this.level === 0 ? "<br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Edit Level\" onClick=\"Game.levelBuilder.initLevelBuilder();\">" : '';
     document.getElementById('world').innerHTML = "<div class='transition'>"+ text +"<br><div style= \"font-size:80% \">Score: " 
-      + this.score + "</div><br>"+ nextLevel +"<input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(" + this.level + ");\"></div>";
+      + this.score + "</div><br>"+ nextLevel +"<input class='btn waves-effect waves-light red' type=\"button\" value=\"Play Again\" onClick=\"Game.playPacman(" + this.level + ");\">" + editLevel + "</div>";
     this.endGame();
   },
 
   die: function() {
     this.play(this.sounds.die);
-    var reset = this.level === 1 ? "" : "<br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Reset\" onClick=\"Game.playPacman(1);\">";
+    var reset = this.level <= 1 ? "" : "<br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Reset\" onClick=\"Game.playPacman(1);\">";
+    var editLevel = this.level === 0 ? "<br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Edit Level\" onClick=\"Game.levelBuilder.initLevelBuilder();\">" : '';
     //Clear Game-on text if still there
     document.getElementById('countofnum').innerHTML = "";
-    document.getElementById('world').innerHTML = "<div class='transition'>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Retry\" onClick=\"Game.playPacman("+ this.level +");\">" + reset + "</div>";
+    document.getElementById('world').innerHTML = "<div class='transition'>You lose!!!<br><div style= \"font-size:80% \">Score: " + this.score + "</div><br><input class = 'btn waves-effect waves-light red' type=\"button\" value=\"Retry\" onClick=\"Game.playPacman("+ this.level +");\">" + reset + editLevel + "</div>";
     this.score = 0;
     this.endGame();
   },
@@ -183,6 +198,16 @@ var Game = {
     clearInterval(this.moveGhostInterval);
     //invalidate keystrokes
     document.onkeydown = function(){};
+    this.gameInProgress = false;
+  },
+
+  showHomeScreen: function() {
+    var coverPicHTML = '<img src="img/coverpicture.gif" style="width:400px; height:215px;"><br>';
+    var helpTextHTML = '<span style="color: white; display: block; margin: 0 auto; text-align: center; padding-bottom: 15px;">Use the up, right, down and left keys to play!</span>';
+    var playButtonHTML = '<input class="btn waves-effect waves-light red" style="display: block; margin: 0 auto 10px;" value="Play!" onClick="Game.playPacman(1);">';
+    var customLevelHTML = '<div id="custom_level"></div>';
+    document.getElementById('world').innerHTML = coverPicHTML + helpTextHTML + playButtonHTML + customLevelHTML;
+    this.levelBuilder.checkSavedCustomGame();
   },
 
   // ***** Sprite methods *****
@@ -226,7 +251,7 @@ var Game = {
   password: "", 
 
   keyDown: function(e) {
-    for (var i=0 ; i<this.pacmans.length; i++) {
+    for (var i=0 ; i<this.pacmans.length ; i++) {
       var currentPacman = this.pacmans[i];
       if (currentPacman.controls[this.keyCodeMap[e.keyCode]]) {
         currentPacman.move(currentPacman.controls[this.keyCodeMap[e.keyCode]]);
@@ -319,10 +344,10 @@ var Game = {
   }
 };
 
-//Uncomment below to start game on page init
+//run on DOM loaded
 
-// document.addEventListener("DOMContentLoaded", function() {  
-//   Game.playPacman(4);
-// });
-
-
+document.addEventListener("DOMContentLoaded", function() {
+  Game.showHomeScreen();
+  //Uncomment below to start game on page init
+  //Game.playPacman(4);
+});

@@ -15,7 +15,7 @@ var Ghost = function(x,y,name){
  Ghost.prototype.availableMoves = function() {
  	var moves = [];
  	if (this.x === 0 || Game.world[((this.y * 10) + this.x) - 1] !== 0) moves.push('left');
-  	if (this.x === 9 || Game.world[((this.y * 10) + this.x) + 1] !== 0) moves.push('right');
+  if (this.x === 9 || Game.world[((this.y * 10) + this.x) + 1] !== 0) moves.push('right');
  	if (this.y === 0 || Game.world[((this.y * 10) + this.x) - 10] !== 0) moves.push('up');
  	if (this.y === 9 || Game.world[((this.y * 10) + this.x) + 10] !== 0) moves.push('down');	
  	return moves;

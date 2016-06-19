@@ -9,7 +9,7 @@ Pacman.prototype = new Character();
 Pacman.prototype.characterType = 'pacman';
 
 Pacman.prototype.renderPacman = function(){
- 	this.renderCharacter.call(this, this.characterType + ' face' + this.direction);
+ 	this.renderCharacter.call(this, this.name + ' face' + this.direction);
 };
 
 Pacman.prototype.inspectBlock = function() {
