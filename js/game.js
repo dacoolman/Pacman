@@ -134,6 +134,10 @@ var Game = {
       }
     }
     if (this.level === 0 && !this.gameInProgress) this.levelBuilder.styleLevelBuilder();
+    else if (this.level ===0) {
+      this.levelBuilder.editIcon();
+      this.updateScore();
+    }
     else this.updateScore();  
   },
 
@@ -210,6 +214,11 @@ var Game = {
     this.levelBuilder.checkSavedCustomGame();
   },
 
+  editLevelInGame: function() {
+    this.endGame();
+    Game.levelBuilder.initLevelBuilder();
+  },
+  
   // ***** Sprite methods *****
 
   pacmans: [],
@@ -312,7 +321,6 @@ var Game = {
       this.world[selectedBlock] = 3;
       this.renderAll();  
     },
-
   // ***** Vanilla Javascript methods *****
   clone: function(obj) {
     var copy;

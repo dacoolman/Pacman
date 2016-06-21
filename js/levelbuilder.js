@@ -48,7 +48,7 @@ Game.levelBuilder = {
 	saveCustomGame: function() {
 		if (!this.validateLevel()) {
 			this.addErrorText();
-			return;
+			return false;
 		}
 		var pacman = this.getPacman('pacman');
 		if(pacman) pacman = new Pacman(pacman.x, pacman.y, pacman.name, pacman.controls)
@@ -66,6 +66,7 @@ Game.levelBuilder = {
 		Game.levels[0].mspacman = Game.clone(mspacman);
 		Game.levels[0].ghosts = Game.ghosts;
 		this.saveText();
+		return true;
 	},
 
 	getPacman: function(type) {
@@ -76,9 +77,9 @@ Game.levelBuilder = {
 	},
 
 	savePlayCustomGame: function() {
+		if (!this.saveCustomGame()) return;
 		document.onclick = function(){};
 		document.onkeydown = function(){};
-		this.saveCustomGame();
 		Game.playPacman(0);
 	},
 
@@ -101,7 +102,7 @@ Game.levelBuilder = {
 		else return false;
 		//at least one pacman
 		//at least one coin
-		this.addErrorText();
+		
 	},
 
 	deleteSavedCustomGame: function() {
@@ -259,6 +260,7 @@ Game.levelBuilder = {
 				break;
 			//blue ghost
 			case '5':
+				Game.world[(this.currentCoordinates.y * 10) + (this.currentCoordinates.x )] = 2;
 				Game.ghosts.push(new Ghost(this.currentCoordinates.x,this.currentCoordinates.y,'ghost'));
 				break;
 			//red ghost
@@ -364,6 +366,10 @@ Game.levelBuilder = {
   	deleteIcon: function() {
   		document.getElementById('world').innerHTML += "<div onclick='Game.levelBuilder.deleteSavedCustomGame()' class='pacman_icon' id='delete_icon'><i class='material-icons'>delete</i><br>Delete level</div>";
   	},
+
+  	editIcon: function() {
+  		document.getElementById('world').innerHTML += "<div onclick='Game.editLevelInGame();' class='pacman_icon' id='edit_icon'><i class='material-icons'>mode_edit</i><br>Edit level</div>";
+  	}
 };
 
 //get level from friends:

@@ -179,3 +179,6 @@ body {
   cursor: pointer;
 }
 
+#edit_icon {
+  left: 340px;
+}
