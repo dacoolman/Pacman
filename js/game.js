@@ -31,7 +31,7 @@ var Game = {
     this.renderAll();
     this.startCountdown(); 
     setTimeout(function(){
-        // Handle keys pressed
+      // Handle keys pressed
       document.onkeydown = Game.keyDown.bind(Game);
       Game.moveGhostInterval = setInterval( Game.moveGhosts.bind(Game), 500);
     }, 4000);  
@@ -218,7 +218,7 @@ var Game = {
     this.endGame();
     Game.levelBuilder.initLevelBuilder();
   },
-  
+
   // ***** Sprite methods *****
 
   pacmans: [],
